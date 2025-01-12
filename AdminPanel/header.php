@@ -67,7 +67,9 @@
                             <li>
                                 <a href="laporanperiodik.php" aria-expanded="true"><i class="ti-server"></i><span>Riwayat Pemesanan</span></a>
                             </li>
-
+                            <li>
+                                <a href="pemasukantoko.php" aria-expanded="true"><i class="ti-server"></i><span>Data Pemasukan</span></a>
+                            </li>
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-settings"></i> <span>Kelola Toko</span></a>
                                 <ul class="collapse">

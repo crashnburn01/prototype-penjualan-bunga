@@ -2,27 +2,15 @@
 include "header.php"; 
 include "../koneksi.php";
 
-// Ambil kategori yang dipilih dari URL (default: Semua)
-$categoryFilter = isset($_GET['category']) ? $_GET['category'] : 'Semua';
-
-// Query kategori (opsional jika ingin menampilkan kategori lain)
+// Query to fetch categories
 $sql = "SELECT idkategori, namakategori FROM kategori";
 $result = $conn->query($sql);
 
-// Get the current page number (default to 1)
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$limit = 8; // Number of products per page
-$offset = ($page - 1) * $limit; // Offset calculation
-
-// Query untuk mengambil produk berdasarkan kategori dan limit pagination
-$productSql = "SELECT idproduk, namaproduk, hargaafter, gambar, idkategori FROM produk";
-if ($categoryFilter !== 'Semua') {
-    $productSql .= " WHERE idkategori = '$categoryFilter'";
-}
-$productSql .= " LIMIT $limit OFFSET $offset"; // Limit the number of products
+// Fetch all products
+$productSql = "SELECT idproduk, namaproduk, hargaafter, gambar FROM produk";
 $productResult = $conn->query($productSql);
 
-// Simpan produk dalam array
+// Store products in an array
 $products = [];
 if ($productResult->num_rows > 0) {
     while ($product = $productResult->fetch_assoc()) {
@@ -30,22 +18,24 @@ if ($productResult->num_rows > 0) {
     }
 }
 
-// Fungsi sorting berdasarkan nama produk
+// Function to compare product names for sorting
 function compareByName($a, $b) {
     return strcasecmp($a['namaproduk'], $b['namaproduk']);
 }
+
+// Sort products by name
 usort($products, 'compareByName');
 
-// Binary Search Function
+// Binary search function
 function binarySearch($array, $key) {
     $low = 0;
     $high = count($array) - 1;
     $key = strtolower($key);
-
+    
     while ($low <= $high) {
         $mid = floor(($low + $high) / 2);
         $midVal = strtolower($array[$mid]['namaproduk']);
-
+        
         if ($midVal == $key) {
             return $array[$mid];
         } elseif ($midVal < $key) {
@@ -57,23 +47,13 @@ function binarySearch($array, $key) {
     return null;
 }
 
-// Cek apakah ada pencarian
+// Check if search query is set
 $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
 
 $searchResult = null;
 if ($searchQuery) {
     $searchResult = binarySearch($products, $searchQuery);
 }
-
-// Get the total number of products for pagination
-$totalSql = "SELECT COUNT(idproduk) AS total FROM produk";
-if ($categoryFilter !== 'Semua') {
-    $totalSql .= " WHERE idkategori = '$categoryFilter'";
-}
-$totalResult = $conn->query($totalSql);
-$totalRow = $totalResult->fetch_assoc();
-$totalProducts = $totalRow['total'];
-$totalPages = ceil($totalProducts / $limit);
 ?>
 
 <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
@@ -89,30 +69,20 @@ $totalPages = ceil($totalProducts / $limit);
 
 <section class="ftco-section">
     <div class="container">
-        <!-- Form Pencarian -->
+        <div class="row justify-content-center mb-5">
+        </div>
         <div class="row justify-content-center mb-5">
             <div class="col-md-10 text-center">
                 <form action="shop.php" method="get">
-                    <input type="hidden" name="category" value="<?= htmlspecialchars($categoryFilter) ?>">
-                    <input type="text" name="search" placeholder="Search for products..." class="form-control" value="<?= htmlspecialchars($searchQuery) ?>">
+                    <input type="text" name="search" placeholder="Search for products..." class="form-control">
                     <button type="submit" class="btn btn-primary mt-2">Search</button>
                 </form>
             </div>
         </div>
-
-        <!-- Filter Kategori -->
-        <div class="row justify-content-center mb-4">
-            <div class="col-md-8 text-center">
-                <a href="shop.php?category=Semua" class="btn btn-primary <?= $categoryFilter == 'Semua' ? 'hover' : '' ?>">Semua</a>
-                <a href="shop.php?category=11" class="btn btn-primary <?= $categoryFilter == '11' ? 'hover' : '' ?>">Buket</a>
-                <a href="shop.php?category=Tangkai" class="btn btn-primary <?= $categoryFilter == 'Tangkai' ? 'hover' : '' ?>">Tangkai</a>
-            </div>
-        </div>
-
         <div class="row">
             <?php
-            // Jika pencarian aktif dan hasil ditemukan
             if ($searchQuery && $searchResult) {
+                // Display search result
                 ?>
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="product">
@@ -137,10 +107,11 @@ $totalPages = ceil($totalProducts / $limit);
                     </div>
                 </div>
                 <?php
-            } elseif ($searchQuery && !$searchResult) {
+            } else if ($searchQuery && !$searchResult) {
+                // Display no result found message
                 echo "<p class='text-center'>Product not found.</p>";
             } else {
-                // Tampilkan semua produk berdasarkan kategori
+                // Display all products
                 foreach ($products as $product) {
                     ?>
                     <div class="col-md-6 col-lg-3 ftco-animate">
@@ -170,20 +141,28 @@ $totalPages = ceil($totalProducts / $limit);
             }
             ?>
         </div>
-
-        <!-- Pagination -->
-        <div class="row justify-content-center">
-            <div class="col-md-8 text-center">
-                <div class="pagination">
-                    <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                        <a href="shop.php?category=<?= htmlspecialchars($categoryFilter) ?>&page=<?= $i ?>" 
-                        class="btn btn-primary <?= ($i == $page) ? 'active' : '' ?>"
-                        style="margin: 0 5px; padding: 8px 16px;"><?= $i ?></a>
-                    <?php endfor; ?>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
+
+<script>
+$(document).ready(function () {
+    // Saat sebuah kategori diklik
+    $('.product-category a').on('click', function (e) {
+        e.preventDefault();
+
+        // Menghapus kelas aktif dari semua kategori
+        $('.product-category a').removeClass('active');
+
+        // Menambahkan kelas aktif ke kategori yang diklik
+        $(this).addClass('active');
+
+        // Dapatkan id kategori yang diklik
+        var categoryId = $(this).data('category-id');
+
+        // Lakukan apa pun yang diperlukan dengan id kategori, seperti mengirimnya ke server atau menampilkan produk sesuai dengan kategori
+        console.log('Category ID:', categoryId);
+    });
+});
+</script>
 
 <?php include "footer.php"; ?>

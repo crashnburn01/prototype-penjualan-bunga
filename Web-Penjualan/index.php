@@ -22,55 +22,45 @@
     </section>
 
     <section class="ftco-section">
-			<div class="container">
-				<div class="row no-gutters ftco-services">
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-award"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Harga Terjangkau</h3>
-                <span>Harga Murah dan Terjangkau</span>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-customer-service"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Produk Terjamin</h3>
-                <span>Produk Yang Dijual Terjamin</span>
-              </div>
-            </div>    
-          </div>
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-award"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Kualitas Terjamin</h3>
-                <span>Kualitas dari produk telah terjamin</span>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-customer-service"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Fast Respon</h3>
-                <span>Fast Respon dan Ramah</span>
-              </div>
-            </div>      
-          </div>
-        </div>
+	<div class="container">
+		<div class="row no-gutters ftco-services">
+			<div class="col-md-4 text-center d-flex align-self-stretch ftco-animate">
+				<div class="media block-6 services mb-md-0 mb-4">
+					<div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
+						<span class="flaticon-award"></span>
+					</div>
+					<div class="media-body">
+						<h3 class="heading">Harga Terjangkau</h3>
+						<span>Harga Murah dan Terjangkau</span>
+					</div>
+				</div>
 			</div>
-		</section>
+			<div class="col-md-4 text-center d-flex align-self-stretch ftco-animate">
+				<div class="media block-6 services mb-md-0 mb-4">
+					<div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
+						<span class="flaticon-customer-service"></span>
+					</div>
+					<div class="media-body">
+						<h3 class="heading">Produk Terjamin</h3>
+						<span>Produk Yang Dijual Terjamin</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 text-center d-flex align-self-stretch ftco-animate">
+				<div class="media block-6 services mb-md-0 mb-4">
+					<div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
+						<span class="flaticon-award"></span>
+					</div>
+					<div class="media-body">
+						<h3 class="heading">Fast Respon</h3>
+						<span>Fast Respon dan Ramah</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 
 		<section class="ftco-section ftco-category ftco-no-pt">
 			<div class="container">
@@ -78,23 +68,23 @@
 					<div class="col-md-8">
 						<div class="row">
 							<div class="col-md-6 order-md-last align-items-stretch d-flex">
-								<div class="category-wrap-2 ftco-animate img align-self-stretch d-flex" style="background-image: url(images/category.jpg);">
+								<div class="category-wrap-2 ftco-animate img align-self-stretch d-flex" style="background-image: url(images/cat.jpg);">
 									
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-1.jpg);">
+								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/cat1.jpg);">
 								</div>
-								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-2.jpg);">
+								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/cat2.jpg);">
 								</div>
 							</div>
 						</div>
 					</div>
 
 					<div class="col-md-4">
-						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-3.jpg);">	
+						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/cat3.jpg);">	
 						</div>
-						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-4.jpg);">
+						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/cat5.jpg);">
 						</div>
 					</div>
 				</div>

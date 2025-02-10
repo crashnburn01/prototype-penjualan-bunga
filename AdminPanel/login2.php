@@ -1,40 +1,42 @@
 <?php
-    require "../koneksi.php";
+require "../koneksi.php";
+session_start();
 
-    session_start();
+if (isset($_SESSION['log'])) {
+    header('location:../Web-Penjualan/index.php');
+    exit();
+}
 
-    if(!isset($_SESSION['log'])){
-        
-    } else{
-        header('location:../Web-Penjualan/index.php');
-        exit();
-    };
+if (isset($_POST['login'])) {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $pass = $_POST['pass']; // Ambil password tanpa hash dulu
 
-    include "../koneksi.php";
+    // Ambil data user berdasarkan email
+    $queryuser = mysqli_query($conn, "SELECT * FROM login WHERE email='$email'");
+    $cariuser = mysqli_fetch_assoc($queryuser);
 
-    if(isset($_POST['login'])){
-        $email = mysqli_real_escape_string($conn,$_POST['email']);
-        $pass = mysqli_real_escape_string($conn,$_POST['pass']);
-        $queryuser = mysqli_query($conn, "SELECT * FROM login WHERE email='$email'");
-        $cariuser = mysqli_fetch_assoc($queryuser);
-
-        if(md5($pass, $cariuser['password'])){
+    if ($cariuser) {
+        if (password_verify($pass, $cariuser['password'])) {
             $_SESSION['id'] = $cariuser['userid'];
             $_SESSION['role'] = $cariuser['role'];
             $_SESSION['notelp'] = $cariuser['notelp'];
             $_SESSION['name'] = $cariuser['namalengkap'];
             $_SESSION['log'] = "Logged";
-            header('location:../Web-Penjualan/index.php');
-        } else{
-            echo 
-            "<script>
-            alert('Username atau Password salah!');
-            </script>";
-            header("location:login2.php");
             
+            header('location:../Web-Penjualan/index.php');
+            exit();
+        } else {
+            echo "<script>alert('Email atau Password salah!'); window.location.href='login2.php';</script>";
+            exit();
         }
+    } else {
+        echo "<script>alert('Email tidak ditemukan!'); window.location.href='login2.php';</script>";
+        exit();
     }
+}
 ?>
+
+
 
 <!doctype html>
 <html class="no-js" lang="en">
@@ -72,9 +74,7 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     <!-- preloader area start -->
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
+
     <!-- preloader area end -->
     <!-- login area start -->
     <div class="login-area login-s2">

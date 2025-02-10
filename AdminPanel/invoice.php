@@ -62,7 +62,7 @@
                                     <div class="invoice-head">
                                         <div class="row">
                                             <div class="iv-left col-6">
-                                                <span>INVOICE</span>
+                                                <span>PESANAN</span>
                                             </div>
                                             <div class="iv-right col-6 text-md-right">
                                                 <span>#<?php echo $orderids?></span>
@@ -72,7 +72,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-6">
                                             <div class="invoice-address">
-                                                <h3>invoiced to</h3>
+                                                <h3>Order For</h3>
                                                 <h5><?php echo $checkdb['namalengkap'];?></h5>
                                                 <p><?php echo $checkdb['alamat'];?></p>
                                                 <p>Makassar</p>
@@ -123,14 +123,14 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="4">TOTAL BELANJA (Ongkir 10k)&nbsp;:</td>
+                                                    <td colspan="4">TOTAL BELANJA &nbsp;:</td>
                                                     <td>Rp.<?php
                                                         $result1 = mysqli_query($conn, "SELECT SUM(d.qty*p.hargaafter) AS count FROM detailorder d, produk p WHERE orderid='$orderids' AND d.idproduk=p.idproduk ORDER BY d.idproduk ASC");
                                                         $cekrow = mysqli_num_rows($result1);
                                                         $row1 = mysqli_fetch_assoc($result1);
                                                         $count = $row1['count']+10000;
                                                         if($cekrow > 0){
-                                                            echo number_format($count);
+                                                            echo number_format($row1['count']);
                                                         } else{
                                                             echo 'No Data';
                                                         }

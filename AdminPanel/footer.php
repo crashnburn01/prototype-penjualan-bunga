@@ -1,7 +1,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>© 212173 | Andi Alif Fachrisyah.</p>
+                <p>Flower by Khansa</p>
             </div>
         </footer>
         <!-- footer area end-->

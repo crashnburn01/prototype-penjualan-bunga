@@ -123,14 +123,14 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="4">TOTAL BELANJA (Ongkir 10k)&nbsp;:</td>
+                                                    <td colspan="4">TOTAL BELANJA &nbsp;:</td>
                                                     <td>Rp.<?php
                                                         $result1 = mysqli_query($conn, "SELECT SUM(d.qty*p.hargaafter) AS count FROM detailorder d, produk p WHERE orderid='$orderids' AND d.idproduk=p.idproduk ORDER BY d.idproduk ASC");
                                                         $cekrow = mysqli_num_rows($result1);
                                                         $row1 = mysqli_fetch_assoc($result1);
                                                         $count = $row1['count']+10000;
                                                         if($cekrow > 0){
-                                                            echo number_format($count);
+                                                            echo number_format($row1['count']);
                                                         } else{
                                                             echo 'No Data';
                                                         }

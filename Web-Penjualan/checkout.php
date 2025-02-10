@@ -129,14 +129,14 @@
 	          			<p class="d-flex">
     						<span>Subtotal</span>
     						<span>Rp.&nbsp;<?php echo number_format($totalharga1)?></span>
-    					<p class="d-flex">
+<!--     					<p class="d-flex">
     						<span>Delivery</span>
-    						<span>Rp.&nbsp;<?php echo number_format($ongkir)?></span>
-    					</p>
+    						<span>Rp.&nbsp;<?php //echo number_format($ongkir)?></span>
+    					</p> -->
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
-    						<span>Rp.&nbsp;<?php $ttl = $totalharga1 += $ongkir?><?= number_format($ttl)?></span>
+    						<span>Rp.&nbsp;<?php $ttl = $totalharga1 //+= $ongkir?><?= number_format($ttl)?></span>
     					</p>
 					</div>
 	          	</div>

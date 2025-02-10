@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>212173</title>
+    <title>Admin Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -49,7 +49,7 @@
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
-                    <a href="index.php"><img src="assets/images/icon/logo.png" alt="logo"></a>
+                    <a href="index.php"><img src="assets/images/icon/logo3.png" alt="logo"></a>
                 </div>
             </div>
             <div class="main-menu">

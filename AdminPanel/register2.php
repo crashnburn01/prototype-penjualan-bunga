@@ -1,31 +1,49 @@
 <?php
-    include "../koneksi.php";
+include "../koneksi.php";
 
-    if(isset($_POST['adduser'])){
-        $nama = $_POST['nama'];
-        $notelp = $_POST['notelp'];
-        $alamat = $_POST['alamat'];
-        $email = $_POST['email'];
-        $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
+if (isset($_POST['adduser'])) {
 
-        $tambahuser = mysqli_query($conn, "INSERT INTO login (namalengkap, email, password, notelp, alamat)
-        VALUES ('$nama','$email','$pass','$notelp','$alamat')");
-        if($tambahuser){
-            echo 
-				"<script>
+    $nama = isset($_POST['nama']) ? trim($_POST['nama']) : "";
+    $notelp = isset($_POST['notelp']) ? trim($_POST['notelp']) : "";
+    $alamat = isset($_POST['alamat']) ? trim($_POST['alamat']) : "";
+    $email = isset($_POST['email']) ? trim($_POST['email']) : "";
+    $password_plain = isset($_POST['pass']) ? trim($_POST['pass']) : "";
+
+    // Validasi: Cek apakah ada yang kosong
+    if (empty($nama) || empty($notelp) || empty($alamat) || empty($email) || empty($password_plain)) {
+        echo "<script>alert('Harap isi semua data!'); document.location.href = 'register2.php';</script>";
+        exit();
+    }
+
+    // Cek apakah email sudah ada
+    $cek_email = mysqli_query($conn, "SELECT email FROM login WHERE email = '$email'");
+    if (mysqli_num_rows($cek_email) > 0) {
+        echo "<script>alert('Email sudah terdaftar! Gunakan email lain.'); document.location.href = 'register2.php';</script>";
+        exit();
+    }
+
+    // Hash password sebelum disimpan
+    $pass = password_hash($password_plain, PASSWORD_DEFAULT);
+
+    // Gunakan Prepared Statement
+    $stmt = $conn->prepare("INSERT INTO login (namalengkap, email, password, notelp, alamat) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $nama, $email, $pass, $notelp, $alamat);
+
+    if ($stmt->execute()) {
+        echo "<script>
                 alert('Registrasi Berhasil');
                 document.location.href = 'login2.php';
-                </script>";
-        } else{
-            echo 
-            "<script>
-            alert('Registrasi Gagal');
-            document.location.href = 'login2.php';
-            </script>"; 
-        }
-    };
+              </script>";
+    } else {
+        // Debugging error query
+        echo "<script>alert('Registrasi Gagal! Error: " . $stmt->error . "');</script>";
+    }
 
+    $stmt->close();
+    $conn->close();
+}
 ?>
+
 
 <!doctype html>
 <html class="no-js" lang="en">
@@ -97,7 +115,7 @@
                         </div>
                         <div class="form-gp">
                             <label for="exampleInputPassword1">Password</label>
-                            <input type="password" name="password">
+                            <input type="password" name="pass">
                             <i class="ti-lock"></i>
                             <div class="text-danger"></div>
                         </div>

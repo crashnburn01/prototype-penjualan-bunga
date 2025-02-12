@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Menyaring data berdasarkan periode
         $data = [];
-        for ($sheetIndex = 1; $sheetIndex <= 4; $sheetIndex++) {
+        for ($sheetIndex = 0; $sheetIndex <= 3; $sheetIndex++) {
             try {
                 $sheet = $spreadsheet->getSheet($sheetIndex);
                 $sheetData = $sheet->toArray();
@@ -161,15 +161,20 @@ function sequentialSearch($data, $startDate, $endDate)
     // Cari index awal dan akhir
     for ($i = 0; $i < count($data); $i++) {
         $current_date = $data[$i]['tanggal'];
-
-        if ($current_date >= $startDate) {
-            if ($start_index === -1) {
-                $start_index = $i;
-            }
+        
+        // Tentukan start_index jika belum ditemukan dan current_date memenuhi
+        if ($start_index === -1 && $current_date >= $startDate) {
+            $start_index = $i;
         }
-
-        if ($current_date <= $endDate) {
-            $end_index = $i; // Selalu update end_index untuk mendapatkan yang terakhir
+        
+        // Jika start_index sudah ditemukan, perbarui end_index selama current_date masih dalam rentang
+        if ($start_index !== -1) {
+            if ($current_date <= $endDate) {
+                $end_index = $i;
+            } else {
+                // Karena data terurut, begitu current_date > endDate, kita bisa berhenti
+                break;
+            }
         }
     }
 

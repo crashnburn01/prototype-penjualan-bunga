@@ -62,7 +62,7 @@
         <?php
           if(!isset($_SESSION['log'])){
             echo '
-            <li class="nav-item"><a href="../AdminPanel/login2.php" class="nav-link">Login</a></li>
+            <li class="nav-item"><a href="../Login/login.php" class="nav-link">Login</a></li>
             ';
           } else{
             if($_SESSION['role']=='Member'){

@@ -1,5 +1,5 @@
 <?php
-require "../koneksi.php";
+require "koneksi.php";
 session_start();
 
 if (isset($_SESSION['log'])) {
@@ -9,7 +9,7 @@ if (isset($_SESSION['log'])) {
 
 if (isset($_POST['login'])) {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $pass = $_POST['pass']; // Ambil password tanpa hash dulu
+    $pass = $_POST['pass']; 
 
     // Ambil data user berdasarkan email
     $queryuser = mysqli_query($conn, "SELECT * FROM login WHERE email='$email'");
@@ -23,14 +23,14 @@ if (isset($_POST['login'])) {
             $_SESSION['name'] = $cariuser['namalengkap'];
             $_SESSION['log'] = "Logged";
             
-            header('location:../Web-Penjualan/index.php');
+            header('location:Web-Penjualan/index.php');
             exit();
         } else {
-            echo "<script>alert('Email atau Password salah!'); window.location.href='login2.php';</script>";
+            echo "<script>alert('Email/Password salah!'); window.location.href='login.php';</script>";
             exit();
         }
     } else {
-        echo "<script>alert('Email tidak ditemukan!'); window.location.href='login2.php';</script>";
+        echo "<script>alert('Email/Password Salah!!'); window.location.href='login.php';</script>";
         exit();
     }
 }
@@ -44,7 +44,7 @@ if (isset($_POST['login'])) {
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Login - Flowers by Khansa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="Web-Penjualan/images/favicon/favicon.ico"/>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/themify-icons.css">

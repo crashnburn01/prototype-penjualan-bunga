@@ -9,6 +9,8 @@
     <title>Flower by Khansa</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/x-icon" href="images/favicon/favicon.ico"/>
     
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
@@ -62,7 +64,7 @@
         <?php
           if(!isset($_SESSION['log'])){
             echo '
-            <li class="nav-item"><a href="../Login/login.php" class="nav-link">Login</a></li>
+            <li class="nav-item"><a href="../login.php" class="nav-link">Login</a></li>
             ';
           } else{
             if($_SESSION['role']=='Member'){

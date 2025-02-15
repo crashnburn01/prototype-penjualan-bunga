@@ -1,5 +1,5 @@
 <?php
-include "../koneksi.php";
+include "koneksi.php";
 
 if (isset($_POST['adduser'])) {
 
@@ -52,7 +52,7 @@ if (isset($_POST['adduser'])) {
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Sign up - Flowers by Khansa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="Web-Penjualan/images/favicon/favicon.ico"/>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/themify-icons.css">

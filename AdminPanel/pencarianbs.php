@@ -277,8 +277,8 @@ function sequentialSearch($data, $startDate, $endDate)
                                         </div>
                                     </div>
                                     <div class="mt-3">
-                                        <p class="font-weight-bold">Waktu eksekusi Binary Search: <?php echo number_format($execution_time_bs, 6); ?> detik</p>
-                                        <p class="font-weight-bold">Waktu eksekusi Sequential Search: <?php echo number_format($execution_time_ss, 6); ?> detik</p>
+                                        <p class="font-weight-bold">Waktu Eksekusi Binary Search: <?php echo number_format($execution_time_bs, 6); ?> detik</p>
+                                        <p class="font-weight-bold">Waktu Eksekusi Sequential Search: <?php echo number_format($execution_time_ss, 6); ?> detik</p>
                                     </div>
                                 </div>
                             </div>

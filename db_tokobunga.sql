@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2025 at 06:25 AM
+-- Generation Time: Feb 19, 2025 at 09:11 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -43,11 +43,12 @@ INSERT INTO `cart` (`idcart`, `orderid`, `userid`, `tglorder`, `status`) VALUES
 (11, '15Swf8Ye0Fm.M', 2, '2020-03-16 12:17:34', 'Cart'),
 (13, '17hKm2wwVmwxw', 3, '2023-11-29 08:45:28', 'Selesai'),
 (14, '17STMXpiOK6/o', 3, '2023-11-30 00:38:13', 'Selesai'),
-(15, '170CgXvPuYelU', 3, '2023-12-04 08:18:27', 'Pengiriman'),
+(15, '170CgXvPuYelU', 3, '2023-12-04 08:18:27', 'Selesai'),
 (16, '17b39VpfIw7xo', 3, '2023-12-04 08:35:57', 'Selesai'),
 (17, '17qCxqRa52dBQ', 4, '2023-12-04 11:59:47', 'Selesai'),
-(18, '17ofisso0oDt6', 1, '2023-12-12 00:59:51', 'Payment'),
-(19, '17HVvyU1SUsRc', 5, '2024-01-02 07:01:12', 'Selesai');
+(19, '17HVvyU1SUsRc', 5, '2024-01-02 07:01:12', 'Selesai'),
+(20, '17qdk/Qra5Jl.', 3, '2025-01-19 06:41:00', 'Selesai'),
+(21, '17ekyokPxm.LM', 3, '2025-02-01 10:11:14', 'Payment');
 
 -- --------------------------------------------------------
 
@@ -96,7 +97,11 @@ INSERT INTO `detailorder` (`detailid`, `orderid`, `idproduk`, `qty`) VALUES
 (33, '17qCxqRa52dBQ', 8, 1),
 (35, '17HVvyU1SUsRc', 15, 2),
 (36, '17HVvyU1SUsRc', 12, 1),
-(37, '17ofisso0oDt6', 7, 1);
+(40, '17qdk/Qra5Jl.', 24, 1),
+(41, '17qdk/Qra5Jl.', 25, 1),
+(42, '17qdk/Qra5Jl.', 27, 1),
+(43, '17ekyokPxm.LM', 20, 1),
+(44, '17ekyokPxm.LM', 27, 1);
 
 -- --------------------------------------------------------
 
@@ -117,7 +122,9 @@ CREATE TABLE `kategori` (
 INSERT INTO `kategori` (`idkategori`, `namakategori`, `tgldibuat`) VALUES
 (1, 'Bunga Tangkai', '2019-12-20 07:28:34'),
 (3, 'Bunga Hidup', '2020-03-16 12:15:40'),
-(8, 'Bunga Plastik', '2023-10-29 07:07:25');
+(8, 'Bunga Plastik', '2023-10-29 07:07:25'),
+(11, 'Buket Bunga', '2025-02-01 08:13:04'),
+(12, 'Tangkai', '2025-02-01 08:13:50');
 
 -- --------------------------------------------------------
 
@@ -184,8 +191,11 @@ CREATE TABLE `pemasukan` (
 --
 
 INSERT INTO `pemasukan` (`id`, `kode_dokumen`, `nama_dokumen`, `periode`, `file_dokumen`, `tanggal`) VALUES
-(10, 'DOC1024', 'Periode Oktober 2024', '2024-10-01', 'Flowers by Khansa Oktober 2024.xlsx', '2025-01-12'),
-(11, 'DOC1124', 'Periode November 2024', '2024-11-01', 'Flowers by Khansa November 2024.xlsx', '2025-01-12');
+(16, 'DOC1024', 'Periode Oktober 2024', '2024-10-01', 'Flowers by Khansa Oktober 2024 (3).xlsx', '2025-02-13'),
+(17, 'DOC1124', 'Periode November 2024', '2024-11-01', 'Flowers by Khansa November 2024 (3).xlsx', '2025-02-13'),
+(18, 'DOC0123', 'Periode 2023', '2023-01-01', 'Data Dokumen 2.xlsx', '2025-02-18'),
+(20, 'DOC0121', 'Periode 2021', '2021-01-01', 'Flowers by Khansa 2021 Terurut.xlsx', '2025-02-18'),
+(24, 'DOC1224', 'Desember 24 - Januari 25', '2024-12-01', 'Flowers by Khansa Desember 2024 - Januari 2025.xlsx', '2025-02-18');
 
 -- --------------------------------------------------------
 
@@ -235,9 +245,18 @@ CREATE TABLE `produk` (
 INSERT INTO `produk` (`idproduk`, `idkategori`, `namaproduk`, `gambar`, `deskripsi`, `rate`, `hargaafter`, `stok`, `tgldibuat`) VALUES
 (7, 3, 'Tulip', '653e31dbecd30.jpeg', 'Bunga yang cantik dan cerah', 5, 25000, 8, '2023-10-29 10:20:11'),
 (8, 3, 'Mawar Merah', '6559cbe29ade0.png', 'Mawar Merah Cantik', 4, 20000, 12, '2023-10-29 13:56:33'),
-(12, 1, 'Bunga Kamelia', '6559f7f673937.jpg', 'Bunga Cantik', 4, 40000, 12, '2023-11-19 11:56:38'),
+(12, 1, 'Bunga Kamelia', '6559f7f673937.jpg', 'Bunga Cantik', 4, 40000, 10, '2023-11-19 11:56:38'),
 (15, 3, 'Anggrek Putih', '6566dd9450c0a.jpg', 'Salah satu jenis anggrek yang yang sangat disukai oleh banyak orang, karena ia memiliki warna bunga yang cerah dan terlihat sangat cantik.', 4, 40000, 10, '2023-11-29 06:43:32'),
-(18, 3, 'Edelweiss', '666810c22c421.jpg', 'Tumbuhan endemik zona alpina/montana di berbagai pegunungan tinggi di Indonesia yang saat ini dikategorikan sebagai tumbuhan langka. Tumbuhan ini dapat mencapai ketinggian 8 meter dan dapat memiliki b', 2, 30000, 20, '2024-06-11 08:54:26');
+(18, 3, 'Edelweiss', '666810c22c421.jpg', 'Tumbuhan endemik zona alpina/montana di berbagai pegunungan tinggi di Indonesia yang saat ini dikategorikan sebagai tumbuhan langka. Tumbuhan ini dapat mencapai ketinggian 8 meter dan dapat memiliki b', 2, 30000, 20, '2024-06-11 08:54:26'),
+(19, 11, 'Buket Mini', '679dde4a949c8.jpg', 'Keindahan yang pas di tangan! Buket mini ini sempurna untuk hadiah kecil penuh makna.\r\n(Bunga disesuaikan dengan yang ready di toko)', 4, 30000, 10, '2025-02-01 08:41:46'),
+(20, 11, 'Buket Medium', '679ddecb1d53a.jpg', 'Sentuhan manis untuk hari istimewa. Buket medium yang elegan, sempurna untuk segala acara.\r\n(Bunga disesuaikan dengan yang ready di toko)', 4, 100000, 19, '2025-02-01 08:43:55'),
+(21, 11, 'Buket XXL', '679de13748d85.jpg', 'Untuk momen besar, butuh buket yang besar! XXL buket kami, penuh warna dan cinta, siap memberi kejutan!\r\n', 5, 250000, 10, '2025-02-01 08:54:15'),
+(22, 11, 'Buket X-Tra Large', '679de193bedec.jpg', 'Lebih besar, lebih meriah! Buket X-Tra Large, sempurna untuk menciptakan kesan luar biasa!', 3, 200000, 9, '2025-02-01 08:55:47'),
+(23, 11, 'Buket Large', '679de1e2cd80f.jpg', 'Pesona bunga yang besar untuk cinta yang tak terbatas! Buket besar kami, hadir dengan kesan elegan dan menawan.', 5, 150000, 10, '2025-02-01 08:57:06'),
+(24, 11, 'Buket Small', '679de23078cbc.jpg', 'Ukuran kecil, cinta yang besar! Buket kecil ini sempurna untuk menyampaikan pesan hati.', 5, 50000, 11, '2025-02-01 08:58:24'),
+(25, 11, 'Buket Round', '679de2ade5a78.jpg', 'Keindahan berbentuk sempurna! Paket Round, buket bunga yang menawan dengan desain simetris.', 5, 300000, 9, '2025-02-01 09:00:29'),
+(26, 11, 'Buket Mawar + Baby Breath', '679de2f9451a7.jpg', 'Sentuhan romantis dengan mawar dan baby breath! Buket elegan ini akan membuat hati siapa saja meleleh.', 5, 170000, 20, '2025-02-01 09:01:45'),
+(27, 11, 'Buket Mawar + Baby Breath Larg', '679de3b55f96f.jpg', 'Cinta yang besar dalam setiap kelopak! Buket Large Mawar dengan baby breath, pilihan sempurna untuk momen istimewa.', 4, 310000, 9, '2025-02-01 09:03:04');
 
 --
 -- Indexes for dumped tables
@@ -312,7 +331,7 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `checkout`
@@ -324,13 +343,13 @@ ALTER TABLE `checkout`
 -- AUTO_INCREMENT for table `detailorder`
 --
 ALTER TABLE `detailorder`
-  MODIFY `detailid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `detailid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `idkategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idkategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `konfirmasi`
@@ -342,13 +361,13 @@ ALTER TABLE `konfirmasi`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `pemasukan`
 --
 ALTER TABLE `pemasukan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
@@ -360,7 +379,7 @@ ALTER TABLE `pembayaran`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `idproduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idproduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables

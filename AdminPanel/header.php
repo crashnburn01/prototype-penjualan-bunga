@@ -92,8 +92,8 @@
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-info-alt"></i><span>Lainnya</span></a>
                                 <ul class="collapse">
-                                    <li><a href="../Web-Penjualan/index.php">Kembali ke Toko</a></li>
-                                    <li><a href="../Web-Penjualan/logout.php">Logout</a></li>
+                                    <li><a href="../index.php">Kembali ke Toko</a></li>
+                                    <li><a href="../logout.php">Logout</a></li>
                                 </ul>
                             </li>
 

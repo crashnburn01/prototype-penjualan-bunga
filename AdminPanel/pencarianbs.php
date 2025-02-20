@@ -68,6 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         return strtotime($a['tanggal']) - strtotime($b['tanggal']);
     });
 
+    // var_dump(value: $allData);
+
     // Bandingkan waktu eksekusi Binary Search
     $start_time_bs = microtime(true);
     $filteredData = binarySearch($allData, $start_date, $end_date);
@@ -79,6 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     sequentialSearch($allData, $start_date, $end_date); // Data tidak ditampilkan
     $end_time_ss = microtime(true);
     $execution_time_ss = $end_time_ss - $start_time_ss;
+
+    // var_dump(value: $filteredData);
+
 
     // Hitung total pemasukan dan pengeluaran
     foreach ($filteredData as $data) {

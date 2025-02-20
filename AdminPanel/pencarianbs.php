@@ -1,59 +1,53 @@
 <?php
-include "../koneksi.php";  // Koneksi ke database
-include "header.php";      // Header halaman
-require '../vendor/autoload.php';  // Autoload PhpSpreadsheet
+include "../koneksi.php";
+include "header.php";
+require '../vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 function formatTanggalExcel($tanggalRaw)
 {
-    $parts = explode(' ', $tanggalRaw); // Pisahkan "Selasa 1/10/2024"
+    $parts = explode(' ', $tanggalRaw);
     if (count($parts) > 1) {
-        $tanggalOnly = trim($parts[1]); // Ambil "1/10/2024"
+        $tanggalOnly = trim($parts[1]);
         $dateObject = DateTime::createFromFormat('j/n/Y', $tanggalOnly);
         return $dateObject ? $dateObject->format('Y-m-d') : null;
     }
     return null;
 }
 
-// Inisialisasi default nilai $execution_time
 $execution_time_bs = null;
 $execution_time_ss = null;
-$totalPemasukan = 0;  // Variabel untuk menghitung total pemasukan
-$totalPengeluaran = 0;  // Variabel untuk menghitung total pengeluaran
-$totalSaldo = 0;  // Variabel untuk menghitung saldo (pemasukan - pengeluaran)
+$totalPemasukan = 0;
+$totalPengeluaran = 0;
+$totalSaldo = 0;
 
-// Proses Pencarian Data Pemasukan Berdasarkan Periode
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $start_date = mysqli_real_escape_string($conn, $_POST['start_date']);
     $end_date = mysqli_real_escape_string($conn, $_POST['end_date']);
 
-    // Menyimpan data hasil pencarian
     $allData = [];
-
-    // Menentukan direktori tempat file dokumen berada
     $directory = "../uploads/";
     $files = glob($directory . "*.xlsx*");
 
     foreach ($files as $file) {
         $spreadsheet = IOFactory::load($file);
 
-        // Menyaring data berdasarkan periode
-        $data = [];
         for ($sheetIndex = 0; $sheetIndex <= 3; $sheetIndex++) {
             try {
                 $sheet = $spreadsheet->getSheet($sheetIndex);
                 $sheetData = $sheet->toArray();
                 foreach ($sheetData as $index => $row) {
-                    if ($index == 0) continue; // Lewati Header
+                    if ($index == 0) continue;
 
-                    $tanggalFormatted = formatTanggalExcel($row[1]); // Konversi tanggal
+                    $tanggalFormatted = formatTanggalExcel($row[1]);
                     if ($tanggalFormatted) {
                         $allData[] = [
                             'tanggal' => $tanggalFormatted,
-                            'deskripsi' => $row[2], // Asumsi kolom deskripsi ada di index 2
-                            'pemasukan' => $row[3], // Asumsi kolom pemasukan ada di index 3
-                            'pengeluaran' => $row[4], // Asumsi kolom pengeluaran ada di index 4
+                            'deskripsi' => $row[2],
+                            'pemasukan' => $row[3],
+                            'pengeluaran' => $row[4],
+                            'file' => basename($file), // Tambahkan nama file
                         ];
                     }
                 }
@@ -63,42 +57,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Urutkan data berdasarkan tanggal sebelum pencarian
     usort($allData, function ($a, $b) {
         return strtotime($a['tanggal']) - strtotime($b['tanggal']);
     });
 
-    // var_dump(value: $allData);
-
-    // Bandingkan waktu eksekusi Binary Search
     $start_time_bs = microtime(true);
     $filteredData = binarySearch($allData, $start_date, $end_date);
     $end_time_bs = microtime(true);
     $execution_time_bs = $end_time_bs - $start_time_bs;
 
-    // Bandingkan waktu eksekusi Sequential Search (tanpa menampilkan data)
     $start_time_ss = microtime(true);
-    sequentialSearch($allData, $start_date, $end_date); // Data tidak ditampilkan
+    sequentialSearch($allData, $start_date, $end_date);
     $end_time_ss = microtime(true);
     $execution_time_ss = $end_time_ss - $start_time_ss;
 
-    // var_dump(value: $filteredData);
-
-
-    // Hitung total pemasukan dan pengeluaran
     foreach ($filteredData as $data) {
-        // Menghapus "Rp" dan tanda titik ribuan untuk konversi ke angka
         $pemasukan = str_replace(['Rp', '.'], '', $data['pemasukan']);
         $pengeluaran = str_replace(['Rp', '.'], '', $data['pengeluaran']);
-        $totalPemasukan += (float)$pemasukan; // Menambahkan nilai pemasukan ke total
-        $totalPengeluaran += (float)$pengeluaran; // Menambahkan nilai pengeluaran ke total
+        $totalPemasukan += (float)$pemasukan;
+        $totalPengeluaran += (float)$pengeluaran;
     }
 
-    // Hitung total saldo
     $totalSaldo = $totalPemasukan - $totalPengeluaran;
+
+    // Melacak dokumen yang berkontribusi
+    $contributingFiles = [];
+    foreach ($filteredData as $data) {
+        if (!in_array($data['file'], $contributingFiles)) {
+            $contributingFiles[] = $data['file'];
+        }
+    }
 } else {
     $allData = [];
     $filteredData = [];
+    $contributingFiles = []; // Inisialisasi array contributingFiles
 }
 
 // Fungsi Binary Search untuk mencari index data berdasarkan periode
@@ -297,5 +289,34 @@ function sequentialSearch($data, $startDate, $endDate)
     </div>
 </div>
 
+<div class="main-content-inner">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h4 class="header-title">Pencarian Data Pemasukan Berdasarkan Rentang Tanggal</h4> -->
+                    <form method="POST">
+                        </form>
+                    <div class="data-tables datatable-primary">
+                        <table id="dataTable2" class="text-center" style="width:100%">
+                            </table>
+                        <?php if ($execution_time_bs !== null) { ?>
+                            <?php } ?>
+                        <?php if (!empty($contributingFiles)) { ?>
+                            <div class="mt-4">
+                                <h5>Dokumen yang Berkontribusi:</h5>
+                                <ul>
+                                    <?php foreach ($contributingFiles as $fileName) { ?>
+                                        <li><a href="detail_dokumen.php?file=<?php echo urlencode($fileName); ?>" target="_blank"><?php echo $fileName; ?></a></li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php include "footer.php"; ?>
